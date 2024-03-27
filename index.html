@@ -172,13 +172,13 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
 
      
       // Überschrift hinzufügen
-      div.innerHTML += '<h3>Grid cost exlcude mwst</h3>';
+      div.innerHTML += '<h3>Grid cost include VAT</h3>';
 
       // Erstelle für jeden Schwellenwert einen Eintrag mit
       // jeweiligen Farben
       for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-          '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+          '<i style="background:' + colors[i]) + '"></i> ' +
           grades[i] + (grades[i + 1] ? ' € - ' + grades[i + 1] + ' €<br>' : ' € +<br>');
           }
         div.innerHTML +='<i style="background:black"></i> unknown ';
