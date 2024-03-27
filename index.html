@@ -57,7 +57,7 @@
 
 var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']
  // Schwellenwerte
- var grades = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45];
+ var grades = [0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225];
 
     // Lade zuerst das GeoJSON, ...
     getJson('data/map.geojson', function (geojson) {
@@ -80,7 +80,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
         style: function (feature) {
           return {
             // Farbwert basierend auf dem Wert für grid abrufen
-            fillColor: getColor(feature.properties.taxes),
+            fillColor: getColor(feature.properties.grid),
             // Sonstiges Design
             fillOpacity: .9,
             color: 'white',
@@ -175,7 +175,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
 
      
       // Überschrift hinzufügen
-      div.innerHTML += '<h3>Taxes cost exlcude mwst</h3>';
+      div.innerHTML += '<h3>Grid cost exlcude mwst</h3>';
 
       // Erstelle für jeden Schwellenwert einen Eintrag mit
       // jeweiligen Farben
