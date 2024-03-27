@@ -68,7 +68,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
     function drawMap(geojson, data) {
 
       // Karte mit Mittelpunkt in München und Zoom-Level 5 erstellen
-      var map = L.map('map').setView([48.13, 11.57], 5);
+      var map = L.map('map').setView([48.13, 11.57], 7);
 
       // Basiskarte von OpenStreetMap hinzufügen
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -220,7 +220,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
           '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-          grades[i] + (grades[i + 1] ? ' € - ' + grades[i + 1] + ' %<br>' : ' € +');
+          grades[i] + (grades[i + 1] ? ' € - ' + grades[i + 1] + ' €<br>' : ' € +');
       }
 
       return div;
