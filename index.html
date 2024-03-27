@@ -99,13 +99,11 @@
       legend.addTo(map);
     }
 
-    // Funktion welche die Daten nach einem Stadtbezirk durchsucht
-    // und den entsprechenden Ausländeranteil zurückgibt.
     // 'Berg am Laim' => 31.6
     function getData(data, name) {
       return data.filter(function (d) {
-        return d['Stadtbezirk'] === name;
-      })[0]['Ausländeranteil'];
+        return d['name'] === name;
+      })[0]['grid'];
     }
 
     // Farbskala-Funktion, welche jeweils für einen bestimmten
