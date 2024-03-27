@@ -80,9 +80,9 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       L.geoJson(geojson, {
         style: function (feature) {
           return {
-            // Farbwert basierend auf dem Wert für Ausländeranteil abrufen
+            // Farbwert basierend auf dem Wert für grid abrufen
             fillColor: getColor(
-              getData(data, feature.properties.name)
+              getData(data, feature.properties.name).grid
             ),
             // Sonstiges Design
             fillOpacity: .9,
@@ -100,13 +100,75 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       legend.addTo(map);
     }
 
+      // Leeres Popup erstellen
+      var popup = L.popup({ closeButton: false });
+
+      // Maus-Events für jeden Stadtteil hinzufügen
+      function bindEvents(feature, layer) {
+        // Popup hinzufügen
+        layer.bindPopup(feature.properties['@id']);
+        // Fläche hervorheben und Popup öffnen
+        layer.on('mouseover', highlightFeature);
+        // Hervorhebung der Fläche zurücknehmen und Popup schließen
+        layer.on('mouseout', resetHighlight);
+        // Auf den Stadteil zoomen
+        layer.on('click', zoomToFeature);
+      }
+
+      // Auf eine Fläche zoomen
+      // Zoomstufe 11 => Zoomstufe 13
+      function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds(), {
+          maxZoom: 13
+        });
+      }
+
+      function highlightFeature(e) {
+        var layer = e.target;
+
+        // Popup am bestimmter Position öffnen
+        popup
+          .setLatLng(getLatLong(layer))
+          .setContent(getPopup(layer, data))
+          .openOn(map);
+
+        // Fläche grafisch hervorheben
+        layer.setStyle({
+          fillOpacity: 1,
+          weight: 3
+        });
+      }
+
+      function resetHighlight(e) {
+        // Popup schließen
+        map.closePopup();
+        // Hervorhebung der Fläche zurücknehmen
+        districts.resetStyle(e.target);
+      }
+    
+    // HTML-Inhalt für Popup generieren
+    function getPopup(layer, data) {
+      // Spart später viel Schreibarbeit :)
+      var props = layer.feature.properties;
+      // Daten für den jeweiligen Stadtbezirk abrufen
+      var datum = getData(data, props.name);
+
+      var html = '';
+
+      html += '<h3>' + datum.name + '</h3>';
+      html += '<p>Grid: ' + datum.grid+ ' €</p>';
+      html += '<p>Taxes: ' + datum.taxes + ' €</p>';
+
+      return html;
+    }
+
     // 'Berg am Laim' => 31.6
     function getData(data, name) {
       var bereich = data.filter(function (d) {
         return d.name === name;
       });
       if (bereich.length > 0)
-      {return bereich[0]['grid'];}
+      {return bereich[0];}
       else
       return 0;
     }
