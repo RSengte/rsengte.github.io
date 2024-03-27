@@ -58,14 +58,10 @@
 var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']
     // Lade zuerst das GeoJSON, ...
     getJson('data/map.geojson', function (geojson) {
-      // ... dann lade die Statistik-Daten für die Stadtbezirke, ...
-      getJson('data/data.json', function (data) {
-        // ... dann rufe die Funktion drawMap() mit beiden Datensätzen auf
-        drawMap(geojson, data);
-      });
-    });
+        drawMap(geojson);}
+      );
 
-    function drawMap(geojson, data) {
+    function drawMap(geojson) {
 
       // Karte mit Mittelpunkt in München und Zoom-Level 5 erstellen
       var map = L.map('map').setView([48.13, 11.57], 7);
@@ -81,9 +77,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
         style: function (feature) {
           return {
             // Farbwert basierend auf dem Wert für grid abrufen
-            fillColor: getColor(
-              getData(data, feature.properties.name).grid
-            ),
+            fillColor: getColor(feature.properties.grid),
             // Sonstiges Design
             fillOpacity: .9,
             color: 'white',
@@ -129,7 +123,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
         // Popup am bestimmter Position öffnen
         popup
           .setLatLng(getLatLong(layer))
-          .setContent(getPopup(layer, data))
+          .setContent(getPopup(layer))
           .openOn(map);
 
         // Fläche grafisch hervorheben
@@ -147,30 +141,16 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       }
     
     // HTML-Inhalt für Popup generieren
-    function getPopup(layer, data) {
+    function getPopup(layer) {
       // Spart später viel Schreibarbeit :)
       var props = layer.feature.properties;
-      // Daten für den jeweiligen Stadtbezirk abrufen
-      var datum = getData(data, props.name);
-
       var html = '';
 
-      html += '<h3>' + datum.name + '</h3>';
-      html += '<p>Grid: ' + datum.grid+ ' €</p>';
-      html += '<p>Taxes: ' + datum.taxes + ' €</p>';
+      html += '<h3>' + props.name + '</h3>';
+      html += '<p>Grid: ' + props.grid+ ' €</p>';
+      html += '<p>Taxes: ' + props.taxes + ' €</p>';
 
       return html;
-    }
-
-    // 'Berg am Laim' => 31.6
-    function getData(data, name) {
-      var bereich = data.filter(function (d) {
-        return d.name === name;
-      });
-      if (bereich.length > 0)
-      {return bereich[0];}
-      else
-      return 0;
     }
 
     // Farbskala-Funktion, welche jeweils für einen bestimmten
