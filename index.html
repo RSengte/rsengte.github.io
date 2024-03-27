@@ -80,7 +80,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
         style: function (feature) {
           return {
             // Farbwert basierend auf dem Wert für grid abrufen
-            fillColor: getColor(feature.properties.grid),
+            fillColor: getColor(feature.properties.taxes),
             // Sonstiges Design
             fillOpacity: .9,
             color: 'white',
@@ -175,7 +175,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
 
      
       // Überschrift hinzufügen
-      div.innerHTML += '<h3>Grid cost exlcude mwst</h3>';
+      div.innerHTML += '<h3>Taxes cost exlcude mwst</h3>';
 
       // Erstelle für jeden Schwellenwert einen Eintrag mit
       // jeweiligen Farben
