@@ -43,12 +43,22 @@
       float: left;
       margin-right: 8px;
     }
+     /* Hintergrundfarbe der Karte */
+    .leaflet-container {
+					
+						 
+      background: antiquewhite;
+    }
+
+    .leaflet-popup-content p {
+      margin: 0;
+    }
   </style>
 </head>
 
 <body>
 
-  <h2>Choroplethen-Karte mit Legende</h2>
+  <h2>Netznutzungsgebühr / grid cost include VAT</h2>
 
   <!-- Container für Karte erstellen -->
   <div id="map"></div>
@@ -66,7 +76,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
 
     function drawMap(geojson) {
 
-      // Karte mit Mittelpunkt in München und Zoom-Level 5 erstellen
+      // Karte mit Mittelpunkt in München und Zoom-Level 7 erstellen
       var map = L.map('map').setView([48.13, 11.57], 7);
 
       // Basiskarte von OpenStreetMap hinzufügen
@@ -76,18 +86,20 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       }).addTo(map);
 
       // Flächen aus GeoJson erstellen
-      L.geoJson(geojson, {
+      var gebiete = L.geoJson(geojson, {
         style: function (feature) {
           return {
             // Farbwert basierend auf dem Wert für grid abrufen
             fillColor: getColor(feature.properties.grid),
             // Sonstiges Design
             fillOpacity: .9,
-            color: 'white',
+            color: 'black',
             opacity: 0.1,
             weight: 1
           };
-        }
+        },
+         // Zusätzliche Funktion, welche für jede Fläche ausgeführt werden sollt
+        onEachFeature: bindEvents
       }).addTo(map);
 
       // Legende unten rechts hinzufügen
@@ -140,20 +152,8 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
         // Popup schließen
         map.closePopup();
         // Hervorhebung der Fläche zurücknehmen
-        districts.resetStyle(e.target);
+        gebiete.resetStyle(e.target);
       }
-    }
-    // HTML-Inhalt für Popup generieren
-    function getPopup(layer) {
-      // Spart später viel Schreibarbeit :)
-      var props = layer.feature.properties;
-      var html = '';
-
-      html += '<h3>' + props.name + '</h3>';
-      html += '<p>Grid: ' + props.grid+ ' €</p>';
-      html += '<p>Taxes: ' + props.taxes + ' €</p>';
-
-      return html;
     }
 
       // Farbskala-Funktion, welche jeweils für einen bestimmten
@@ -187,6 +187,29 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
 
       return div;
     }
+    // HTML-Inhalt für Popup generieren
+    function getPopup(layer) {
+      // Spart später viel Schreibarbeit :)
+      var props = layer.feature.properties;
+      var html = '';
+
+      html += '<h3>' + props.plz_name_long + '</h3>';
+      html += '<p>Grid: ' + props.grid+ ' €/kWh</p>';
+      html += '<p>Taxes: ' + props.taxes + ' €/kWh</p>';
+
+      return html;
+    }
+
+     // Geografische Position eines Features ermitteln
+    // => [48.2481162, 11.52133505]
+    function getLatLong(feature) {
+      return [
+        feature.getBounds().getNorth(),
+        feature.getBounds().getWest() +
+          (feature.getBounds().getEast() -
+          feature.getBounds().getWest()) / 2
+      ];
+     }
 
     // Generische Funktion um externe JSON-Dateien zu laden
     function getJson(path, callback) {
