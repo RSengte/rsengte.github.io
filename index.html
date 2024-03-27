@@ -101,9 +101,13 @@
 
     // 'Berg am Laim' => 31.6
     function getData(data, name) {
-      return data.filter(function (d) {
+      var bereich = data.filter(function (d) {
         return d.name === name;
-      })[0]['grid'];
+      });
+      if (bereich.length > 0)
+      {return bereich[0]['grid'];}
+      else
+      return 0;
     }
 
     // Farbskala-Funktion, welche jeweils für einen bestimmten
