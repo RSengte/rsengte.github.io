@@ -113,17 +113,28 @@
     // Farbskala-Funktion, welche jeweils für einen bestimmten
     // Wert eine Farbe zurückgibt: 31.6 => '#cbc9e2'
     function getColor(value) {
+      var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']
       switch (true) {
-        case value <= 25.82:
-          return '#f2f0f7';
-        case value <= 29.64:
-          return '#cbc9e2';
-        case value <= 33.46:
-          return '#9e9ac8';
-        case value <= 37.28:
-          return '#756bb1';
-        case value <= 41.1:
-          return '#54278f';
+        case value <= 0:
+          return colors[0];
+          case value <= 0.01:
+          return colors[1];
+          case value <= 0.02:
+          return colors[2];
+          case value <= 0.03:
+          return colors[3];
+          case value <= 0.04:
+          return colors[4];
+          case value <= 0.05:
+          return colors[5];
+          case value <= 0.06:
+          return colors[6];
+          case value <= 0.07:
+          return colors[7];
+          case value <= 0.08:
+          return colors[8]; 
+           case value <= 0.09:
+          return colors[9];
         default:
           return 'black';
       }
@@ -139,7 +150,7 @@
       var grades = [22.00, 25.82, 29.64, 33.46, 37.28];
 
       // Überschrift hinzufügen
-      div.innerHTML += '<h3>Ausländeranteil</h3>';
+      div.innerHTML += '<h3>Grid cost exlcude mwst</h3>';
 
       // Erstelle für jeden Schwellenwert einen Eintrag mit
       // jeweiligen Farben
