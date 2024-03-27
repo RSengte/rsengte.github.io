@@ -156,7 +156,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       // Farbskala-Funktion, welche jeweils für einen bestimmten
       // Wert eine Farbe zurückgibt: 31.6 => '#cbc9e2'
       function getColor(value) {
-        for (var i = 1; i= < grades.length; i++) {
+        for (var i = 1; i <= grades.length; i++) {
           if (value <= grades[i]) {
             return colors[i-1];
           }
