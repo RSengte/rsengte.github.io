@@ -182,7 +182,7 @@ var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c
       for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
           '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-          grades[i] + (grades[i + 1] ? ' € - ' + grades[i + 1] + ' €<br>' : ' € +');
+          (grades[i + 1] ?  grades[i]+'  € - ' + grades[i + 1] + ' €<br>' : ' unknown');
       }
 
       return div;
