@@ -86,8 +86,8 @@
             // Sonstiges Design
             fillOpacity: .8,
             color: 'white',
-            opacity: 1,
-            weight: 2
+            opacity: 0.1,
+            weight: 1
           };
         }
       }).addTo(map);
@@ -115,7 +115,7 @@
     function getColor(value) {
       var colors = ['white','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']
       switch (true) {
-        case value <= 0:
+        case value <= 0.0:
           return colors[0];
           case value <= 0.1:
           return colors[1];
@@ -147,7 +147,7 @@
       var div = L.DomUtil.create('div', 'info legend');
 
       // Schwellenwerte
-      var grades = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9];
+      var grades = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
 
       // Überschrift hinzufügen
       div.innerHTML += '<h3>Grid cost exlcude mwst</h3>';
