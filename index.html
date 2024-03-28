@@ -218,6 +218,14 @@ var colors = [
       html += '<h3>' + props.plz_name_long + '</h3>';
       html += '<p>Grid: ' + props.grid+ ' €/kWh</p>';
       html += '<p>Taxes: ' + props.taxes + ' €/kWh</p>';
+      html += '<p>Geschätzekosten im Monat bei 2500kWh laut Tibber:</p>';
+      html += '<p>Gebühr Messstellenbetrieb: ' + props.meter_operator + ' €</p>';
+      html += '<p>Tibber Gebühr: ' + props.tibber_service + ' €</p>';
+      html += '<p>Grid monatlich: ' + props.month_grid + ' €</p>'; 
+      html += '<p>Durchschnittlicher Strompreis:</p>';
+      html += '<p>Letzte 30 Tage: ' + props.costLast30Day_power + ' €/kWh</p>';
+      
+      
 
       return html;
     }
