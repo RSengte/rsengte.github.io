@@ -98,12 +98,12 @@ var colors = [
 
     function drawMap(geojson) {
 
-      // Karte mit Mittelpunkt in München und Zoom-Level 7 erstellen
-      var map = L.map('map').setView([52.15, 9.95], 11);
+      // Karte mit Mittelpunkt in Hildesheim und Zoom-Level 12 erstellen
+      var map = L.map('map').setView([52.15, 9.95], 12);
 
       // Basiskarte von OpenStreetMap hinzufügen
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        maxZoom: 15,
+        maxZoom: 17,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
       }).addTo(map);
 
@@ -112,7 +112,7 @@ var colors = [
         style: function (feature) {
           return {
             // Farbwert basierend auf dem Wert für grid abrufen
-            fillColor: getColor(feature.properties.grid),
+            fillColor: 'green',
             // Sonstiges Design
             fillOpacity: .9,
             color: 'black',
@@ -147,10 +147,10 @@ var colors = [
       }
 
       // Auf eine Fläche zoomen
-      // Zoomstufe 11 => Zoomstufe 13
+      // Zoomstufe 13=> Zoomstufe 16
       function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds(), {
-          maxZoom: 13
+          maxZoom: 16
         });
       }
 
